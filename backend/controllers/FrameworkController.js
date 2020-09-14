@@ -1,13 +1,13 @@
 const Framework = require('../models/FrameworkModel');
 const Tier = require('../models/TierModel');
 
-const findAllFramework = (req, res)=>{
+const findAll = (req, res)=>{
     Framework.find()
     .then(frameworks=>res.json(frameworks))
     .catch(error=>res.status(400).json('Error: '+error))
 }
 
-const addFramework = (req, res)=>{
+const save = (req, res)=>{
     const name = req.body.name;
     const explanation = req.body.explanation;
     
@@ -20,28 +20,14 @@ const addFramework = (req, res)=>{
     .catch(error=>res.status(400).json('Error: '+error))
 }
 
-const findAllTier = (req, res)=>{   
-    Tier.find(req.body.idFramework)
+const findAllTiers = (req, res)=>{   
+    Tier.find({idFramework:req.params.idFramework})
     .then(tiers=>{
         res.json(tiers)
     })
-    .catch(error=>res.status(400).json('Error: '+error))
-}
-
-const addTier = (req, res)=>{
-    const idFramework = req.body.idFramework;
-    const name =req.body.name;
-    const explanation = req.body.explanation;
-    const tier = new Tier({
-        idFramework,
-        name,
-        explanation
-    })
-    tier.save()
-    .then(tier=>res.json('Tier Added!'))
-    .catch(error=>res.status(400).json('Error:'+error))
+    .catch(error=>res.status(400).json('Find all error: '+error))
 }
 
 module.exports = {
-    findAllFramework, addFramework, findAllTier, addTier
+    findAll, save, findAllTiers
 }
