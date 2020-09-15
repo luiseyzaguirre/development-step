@@ -9,5 +9,5 @@ const FrameworkSchema = new  Schema({
   timestamps:true
  }
 );
-const Framework = mongoose.model('Framewor',FrameworkSchema)
+const Framework = mongoose.model('Framewok',FrameworkSchema)
 module.exports=Framework;
